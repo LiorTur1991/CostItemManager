@@ -5,7 +5,6 @@ window.todo.CostItem = function(date ,description,note){
     costItem.Date = date;
     costItem.description = description;
     costItem.note = note;
-    costItem.name = "SAda";
     return costItem;
 }
 
