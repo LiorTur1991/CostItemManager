@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="CostItemManager.js"></script>
+</head>
+<body>
+<div data-role="page" id="home">
+    <div data-role="header">
+        <h1>Create your ToDoList</h1>
+    </div>
+    <div data-role="content">
+        <form>
+            Title: <input type="text" id="title"/>
+            <br>
+            Description: <input type="text" id="description"/>
+            <br>
+            <input type="button" value="Submit" id="submit" >
+        </form>
+        <div id="message"></div>
+        <br>
+        <a href="Reports.html">Reports</a>
+    </div>
+    <script>
+        document.getElementById("submit").addEventListener("click", handleButtonClick);
+        function handleButtonClick() {
+            try {
+                let ob = {};
+                ob.title = document.getElementById("title").value;
+                ob.description = document.getElementById("description").value;
+                window.todo.addItem(ob);
+                document.getElementById("message").innerText = "Item Add Successfully";
+            }
+            catch{
+                document.getElementById("message").innerText = "Item Add Failed";
+            }
+        }
+
+    </script>
+</div>
+
+</body>
+</html>
