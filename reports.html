@@ -11,28 +11,68 @@
 <body>
 <div data-role="page" id="reports">
     <div data-role="content">
+        <form>
+            Sort By Month: <select id="sortMonth">
+            <option></option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+            </select>
+            <input type="button" value="Sort" id="applySort" >
+        </form>
+        <br>
         <ul data-role="listview" id="list"> </ul>
         <br>
         <p><a href="" data-rel="back">back</a></p>
     </div>
     <script>
-        var list = document.getElementById('list');
-        var vec = todo.getItems();
-        vec.forEach(
-            function(ob)
-            {
-                var li = document.createElement("li");
-                var h3 = document.createElement("h3");
-                var p = document.createElement("p");
-                var text = document.createTextNode(ob.title);
-                var description = document.createTextNode(ob.description);
-                h3.appendChild(description);
-                p.appendChild(text);
-                li.appendChild(h3);
-                li.appendChild(p);
-                list.appendChild(li);
-            }
-        );
+        (function () {
+            var list = document.getElementById('list');
+            var vec = costManager.getItems();
+            vec.forEach(
+                function (ob) {
+                    var li = document.createElement("li");
+                    var h3 = document.createElement("h3");
+                    var p = document.createElement("p");
+                    var text = document.createTextNode(ob.title);
+                    var description = document.createTextNode(ob.date);
+                    h3.appendChild(text);
+                    p.appendChild(description);
+                    li.appendChild(h3);
+                    li.appendChild(p);
+                    list.appendChild(li);
+                }
+            );
+        })();
+        window.costManager.applySort = function(){
+            var sortMonth = document.getElementById('sortMonth').value;
+            var list = document.getElementById('list');
+            var vec = costManager.getCostsPerMonth(parseInt(sortMonth));
+            vec.forEach(
+                function (ob) {
+                    var li = document.createElement("li");
+                    var h3 = document.createElement("h3");
+                    var p = document.createElement("p");
+                    var text = document.createTextNode(ob.title);
+                    var description = document.createTextNode(ob.date);
+                    h3.appendChild(text);
+                    p.appendChild(description);
+                    li.appendChild(h3);
+                    li.appendChild(p);
+                    list.appendChild(li);
+                }
+            );
+        }
+        document.getElementById("applySort").addEventListener("click", window.costManager.applySort);
     </script>
 </div>
 </body>

@@ -11,14 +11,23 @@
 <body>
 <div data-role="page" id="home">
     <div data-role="header">
-        <h1>Create your ToDoList</h1>
+        <h1>Cost Manager</h1>
     </div>
     <div data-role="content">
         <form>
             Title: <input type="text" id="title"/>
-            <br>
             Description: <input type="text" id="description"/>
-            <br>
+            Date: <input type="date" id="date"/>
+            Price: <input type="number" id="price"/>
+            Category: <select name="category" id="category">
+                <option></option>
+                <option value="Food">Food</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Education">Education</option>
+                <option value="Travel">Travel</option>
+                <option value="Health">Health</option>
+                <option value="House">House</option>
+            </select>
             <input type="button" value="Submit" id="submit" >
         </form>
         <div id="message"></div>
@@ -26,20 +35,30 @@
         <a href="Reports.html">Reports</a>
     </div>
     <script>
-        document.getElementById("submit").addEventListener("click", handleButtonClick);
-        function handleButtonClick() {
+        window.costManager.handleButtonClick =  function (){
             try {
                 let ob = {};
                 ob.title = document.getElementById("title").value;
                 ob.description = document.getElementById("description").value;
-                window.todo.addItem(ob);
+                ob.date = document.getElementById("date").value;
+                ob.price = document.getElementById("price").value;
+                ob.category = document.getElementById("category").value;
+                if(ob.title=="" || ob.description=="" || ob.date=="" || ob.price=="" || ob.category=="") {
+                    document.getElementById("message").innerText = "Item Add Failed";
+                    return;
+                }
+                window.costManager.addItem(ob);
+                document.getElementById("title").value = "";
+                document.getElementById("description").value = "";
+                document.getElementById("date").value = "";
+                document.getElementById("price").value = "";
                 document.getElementById("message").innerText = "Item Add Successfully";
             }
             catch{
                 document.getElementById("message").innerText = "Item Add Failed";
             }
         }
-
+        document.getElementById("submit").addEventListener("click", window.costManager.handleButtonClick);
     </script>
 </div>
 

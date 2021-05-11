@@ -1,22 +1,37 @@
-window.todo = {};
+window.costManager = {};
 
-window.todo.CostItem = function(date ,description,note){
+window.costManager.CostItem = function(title,description,date, price,note){
     let costItem;
+    costItem.Title = title;
+    costItem.Description = description;
     costItem.Date = date;
-    costItem.description = description;
-    costItem.note = note;
+    costItem.price = price;
+    costItem.Note = note;
     return costItem;
 }
 
-window.todo.addItem = function(ob) {
-    var data = todo.getItems();
+window.costManager.addItem = function(ob) {
+    let data = costManager.getItems();
     if(data == null)
         data = [];
     data.push(ob)
     let dataString = JSON.stringify(data);
     localStorage.setItem("data", dataString);
 };
-window.todo.getItems = function() {
-    var data = localStorage.getItem("data");
+window.costManager.getItems = function() {
+    let data = localStorage.getItem("data");
     if(data) return JSON.parse(data);
+}
+
+window.costManager.getCostsPerMonth = function(monthNumber) {
+    let data = localStorage.getItem("data");
+    let vec = JSON.parse(data);
+    let result = [];
+    vec.forEach(
+        function (ob) {
+            let obDateFormat = new Date(ob.date)
+            if(obDateFormat.getMonth() == monthNumber)
+                result.push(ob);
+    });
+    return result;
 }
