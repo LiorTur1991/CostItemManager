@@ -27,10 +27,17 @@ window.costManager.getCostsPerMonth = function(monthNumber) {
     let data = localStorage.getItem("data");
     let vec = JSON.parse(data);
     let result = [];
+    if(monthNumber < 0){
+        vec.forEach(
+            function (ob) {
+                result.push(ob);
+            });
+        return result;
+    }
     vec.forEach(
         function (ob) {
-            let obDateFormat = new Date(ob.date)
-            if(obDateFormat.getMonth() == monthNumber)
+            let obDateFormat = new Date(ob.date);
+            if(obDateFormat.getMonth() === monthNumber)
                 result.push(ob);
     });
     return result;
