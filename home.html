@@ -44,7 +44,7 @@
                 ob.price = document.getElementById("price").value;
                 ob.category = document.getElementById("category").value;
                 if(ob.title=="" || ob.description=="" || ob.date=="" || ob.price=="" || ob.category=="") {
-                    document.getElementById("message").innerText = "Item Add Failed";
+                    document.getElementById("message").innerText = "Failed to add item, there is missing information";
                     return;
                 }
                 window.costManager.addItem(ob);
@@ -52,10 +52,10 @@
                 document.getElementById("description").value = "";
                 document.getElementById("date").value = "";
                 document.getElementById("price").value = "";
-                document.getElementById("message").innerText = "Item Add Successfully";
+                document.getElementById("message").innerText = "Item Added Successfully";
             }
             catch{
-                document.getElementById("message").innerText = "Item Add Failed";
+                document.getElementById("message").innerText = "Failed to add item";
             }
         }
         document.getElementById("submit").addEventListener("click", window.costManager.handleButtonClick);

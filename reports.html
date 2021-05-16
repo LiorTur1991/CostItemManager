@@ -57,7 +57,7 @@
             var sortMonth = document.getElementById('sortMonth').value;
             var list = document.getElementById('list');
             list.innerHTML = "";
-            var vec = costManager.getCostsPerMonth(parseInt(sortMonth));
+            var vec = window.costManager.getCostsPerMonth(parseInt(sortMonth));
             vec.forEach(
                 function (ob) {
                     var li = document.createElement("li");
