@@ -42,3 +42,16 @@ window.costManager.getCostsPerMonth = function(monthNumber) {
     });
     return result;
 }
+window.costManager.refreshListView = function(items){
+    var itemsList = "<ul data-role='listview' id='list'>";
+    items.forEach(
+        function (ob) {
+            itemsList+= "<li data-role='collapsible'>";
+            itemsList+= "<h3>" + ob.title + "</h3>";
+            itemsList+= "<p>" + ob.description + "</p>";
+            itemsList+= "<p><strong>" + ob.date + "</strong></p>";
+            itemsList+= "</li>";
+        });
+    itemsList+= "</ul>";
+    return itemsList;
+}
