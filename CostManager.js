@@ -42,8 +42,8 @@ window.costManager.getCostsPerMonth = function(monthNumber) {
     });
     return result;
 }
-window.costManager.refreshListView = function(items){
-    var itemsList = "<ul data-role='listview' id='list'>";
+window.costManager.updateListView = function(items){
+    let itemsList = "<ul data-role='listview' id='list'>";
     items.forEach(
         function (ob) {
             itemsList+= "<li data-role='collapsible'>";
@@ -53,5 +53,6 @@ window.costManager.refreshListView = function(items){
             itemsList+= "</li>";
         });
     itemsList+= "</ul>";
-    return itemsList;
+    $("#list").html(itemsList);
+    $("#list").trigger('create');
 }

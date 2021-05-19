@@ -40,19 +40,10 @@
         <a href="" data-rel="back">back</a>
     </div>
     <script>
-        (function load() {
-            let vec = costManager.getItems();
-            let result = window.costManager.refreshListView(vec);
-            let listPointer = $("#list").html(result);
-            listPointer.listview().listview('refresh');
-        })();
-
+        (function load() {window.costManager.updateListView(window.costManager.getItems()); })();
         window.costManager.applySort = function(){
             let sortMonth = document.getElementById('sortMonth').value;
-            let vec = costManager.getCostsPerMonth(parseInt(sortMonth));
-            let result = window.costManager.refreshListView(vec);
-            let listPointer = $("#list").html(result);
-            listPointer.listview().listview('refresh');
+            window.costManager.updateListView(costManager.getCostsPerMonth(parseInt(sortMonth)));
         };
         document.getElementById("applySort").addEventListener("click", window.costManager.applySort);
     </script>
