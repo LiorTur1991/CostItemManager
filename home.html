@@ -2,82 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="CostManager.js"></script>
+    <script src="costManager.js"></script>
 </head>
 <body>
 <div data-role="page" id="home">
     <div data-role="header">
         <h1>Cost Manager</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="home.html" data-icon="grid" data-transition="pop">Home</a></li>
+                    <li><a href="reports.html" data-icon="star" data-transition="pop">Reports</a></li>
+                    <li><a href="add.html" data-icon="plus" data-transition="pop">New Expense</a></li>
+                </ul>
+            </div>
     </div>
-    <div data-role="content">
-        <form id="add-form">
-            Title: <input type="text" id="title"/>
-            Description: <input type="text" id="description"/>
-            Date: <input type="date" id="date"/>
-            Price: <input type="number" id="price"/>
-            Category: <select name="category" id="category">
-                <option value="default" disabled selected>Select a category...</option>
-                <option value="Food">Food</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Education">Education</option>
-                <option value="Travel">Travel</option>
-                <option value="Health">Health</option>
-                <option value="House">House</option>
-            </select>
-            <input type="button" value="Submit" id="submit" >
-        </form>
-        <div data-role="popup" id="pop-up-success">
-            <div data-role="header" style="background-color: darkseagreen">
-                <h1 style="font-weight: bold">Success</h1>
-            </div>
-            <div role="main" class="ui-content">
-                <a class="ui-shadow-icon ui-btn ui-shadow ui-corner-all ui-icon-check ui-btn-icon-left">Item successfully added!</a>
-            </div>
-        </div>
-        <div data-role="popup" id="pop-up-warning">
-            <div data-role="header" style="background-color: indianred">
-                <h1 style="font-weight: bold">Failed</h1>
-            </div>
-            <div role="main" class="ui-content">
-                <a class="ui-shadow-icon ui-btn ui-shadow ui-corner-all ui-icon-alert ui-btn-icon-left ui-body-a">The form is incomplete!</a>
-            </div>
-        </div>
-        <br>
 
-    </div>
+
+
     <div data-role="footer">
-        <a href="reports.html" data-transition="pop">Reports</a>
+        <p><em>Created by Natan Kaspy and Lior ----</em> &copy;</p>
     </div>
-    <script>
-        window.costManager.handleButtonClick =  function (){
-            try {
-                let ob = {};
-                ob.title = document.getElementById("title").value;
-                ob.description = document.getElementById("description").value;
-                ob.date = document.getElementById("date").value;
-                ob.price = document.getElementById("price").value;
-                ob.category = document.getElementById("category").value;
-                if(ob.title=="" || ob.description=="" || ob.date=="" || ob.price=="" || ob.category==""){
-                    $("#pop-up-warning").popup("open");
-                    return;
-                }
-                window.costManager.addItem(ob);
-                document.getElementById("title").value = "";
-                document.getElementById("description").value = "";
-                document.getElementById("date").value = "";
-                document.getElementById("price").value = "";
-                $("#pop-up-success").popup("open");
-            }
-            catch{
-                $("#pop-up-warning").popup("open");
-            }
-        }
-        document.getElementById("submit").addEventListener("click", window.costManager.handleButtonClick);
-    </script>
 </div>
 
 </body>

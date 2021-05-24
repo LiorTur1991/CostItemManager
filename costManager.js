@@ -1,6 +1,6 @@
 window.costManager = {};
 
-window.costManager.CostItem = function(title,description,date, price,note){
+window.costManager.getCostItem = function(title, description, date, price, note){
     let costItem;
     costItem.Title = title;
     costItem.Description = description;
@@ -12,15 +12,18 @@ window.costManager.CostItem = function(title,description,date, price,note){
 
 window.costManager.addItem = function(ob) {
     let data = costManager.getItems();
-    if(data == null)
-        data = [];
     data.push(ob)
     let dataString = JSON.stringify(data);
     localStorage.setItem("data", dataString);
 };
 window.costManager.getItems = function() {
     let data = localStorage.getItem("data");
-    if(data) return JSON.parse(data);
+    if(data)
+        return JSON.parse(data);
+    else {
+        data = [];
+        return data;
+    }
 }
 
 window.costManager.getCostsPerMonth = function(monthNumber) {
