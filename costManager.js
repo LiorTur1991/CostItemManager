@@ -1,5 +1,7 @@
 window.costManager = {};
 
+window.costManager.footerText = "Created by Natan Kaspy and Lior Turgeman";
+
 window.costManager.getCostItem = function(title, description, date, price, note){
     let costItem;
     costItem.Title = title;

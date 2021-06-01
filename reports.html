@@ -1,17 +1,24 @@
-<!DOCTYPE html>
+@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Reports</title>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="CostManager.js"></script>
+    <script src="costManager.js"></script>
 </head>
 <body>
 <div data-role="page" id="reports">
     <div data-role="header">
         <h1>Reports</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="home.html" data-icon="grid" data-transition="pop">Home</a></li>
+                <li><a href="reports.html" data-icon="star" data-transition="pop">Reports</a></li>
+                <li><a href="add.html" data-icon="gear" data-transition="pop">New Expense</a></li>
+            </ul>
+        </div>
     </div>
     <div data-role="content">
         <form>
@@ -29,7 +36,7 @@
             <option value="9">October</option>
             <option value="10">November</option>
             <option value="11">December</option>
-            </select>
+        </select>
             <input type="button" value="Sort" id="applySort" >
         </form>
         <br>
@@ -37,10 +44,11 @@
         <br>
     </div>
     <div data-role="footer">
-        <a data-rel="Back">back</a>
+        <p><em>Created by Natan Kaspy and Lior Turgeman</em> &copy;</p>
     </div>
     <script>
         (function load() {window.costManager.updateListView(window.costManager.getItems()); })();
+
         window.costManager.applySort = function(){
             let sortMonth = document.getElementById('sortMonth').value;
             window.costManager.updateListView(costManager.getCostsPerMonth(parseInt(sortMonth)));
