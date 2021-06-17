@@ -2,13 +2,14 @@ window.costManager = {};
 
 window.costManager.footerText = "Created by Natan Kaspy and Lior Turgeman";
 
+
 window.costManager.getCostItem = function(title, description, date, price, note){
-    let costItem;
-    costItem.Title = title;
-    costItem.Description = description;
-    costItem.Date = date;
+    let costItem = {};
+    costItem.title = title;
+    costItem.description = description;
+    costItem.date = date;
     costItem.price = price;
-    costItem.Note = note;
+    costItem.note = note;
     return costItem;
 }
 
