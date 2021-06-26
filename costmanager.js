@@ -61,3 +61,74 @@ window.costManager.updateListView = function(items){
     $("#list").html(itemsList);
     $("#list").trigger('create');
 }
+window.costManager.getCurrentMonthString = function (currentMonth){
+    let monthText;
+    switch (currentMonth){
+        case 0:
+            monthText = "January";
+            break;
+        case 1:
+            monthText = "February";
+            break;
+        case 2:
+            monthText = "March";
+            break;
+        case 3:
+            monthText = "April";
+            break;
+        case 4:
+            monthText = "May";
+            break;
+        case 5:
+            monthText = "June";
+            break;
+        case 6:
+            monthText = "July";
+            break;
+        case 7:
+            monthText = "August";
+            break;
+        case 8:
+            monthText = "September";
+            break;
+        case 9:
+            monthText = "October";
+            break
+        case 10:
+            monthText = "November";
+            break;
+        case 11:
+            monthText = "December";
+            break;
+
+    }
+    return monthText;
+}
+
+window.costManager.applySort = function(){
+    let sortMonth = parseInt(document.getElementById('sortMonth').value);
+    window.costManager.updateListView(costManager.getCostsPerMonth(sortMonth));
+};
+
+window.costManager.createPieData = function (data){
+    if(data == undefined) return;
+    let totalCounter = 0;
+    let dataMap = new Map();
+    data.forEach(function (calcData) {
+            if (!dataMap.has(calcData.category))
+                dataMap.set(calcData.category, parseInt(calcData.price))
+            else {
+                let counter = dataMap.get(calcData.category);
+                counter = counter + parseInt(calcData.price);
+                dataMap.set(calcData.category, counter)
+            }
+            totalCounter = totalCounter + parseInt(calcData.price);
+        }
+    )
+    let pieData = [];
+    dataMap.forEach((value, key) => {
+            pieData.push({y: (value/totalCounter)*100,label: key})
+        })
+
+    return pieData;
+}
