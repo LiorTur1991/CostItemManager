@@ -16,35 +16,17 @@
             <ul>
                 <li><a data-icon="grid" data-transition="pop" class="ui-btn-active ui-state-persist">Home</a></li>
                 <li><a data-icon="plus" href="#add" data-transition="fade">New Expense</a></li>
-                <li><a data-icon="star" href="#reports" data-transition="fade">Reports</a></li>
+                <li><a data-icon="star" href="#reports" data-transition="fade" onclick="window.costManager.updateReportView()">Reports</a></li>
             </ul>
         </div>
     </div>
     <div data-role="content">
         <h3 id="currentMonth"></h3>
-        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <br>
+        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+        <br>
         <script>
-            window.onload = function() {
-                let currentDate = new Date();
-                let CurrentMonth = costManager.getCurrentMonthString(currentDate.getMonth());
-                document.getElementById("currentMonth").innerHTML  = "Current Month: "+CurrentMonth;
-                let data = window.costManager.createPieData(window.costManager.getCostsPerMonth(currentDate.getMonth()));
-                let text = CurrentMonth + " summery";
-                let chart = new CanvasJS.Chart("chartContainer", {
-                    animationEnabled: true,
-                    title: {
-                        text: text
-                    },
-                    data: [{
-                        type: "pie",
-                        startAngle: 240,
-                        yValueFormatString: "##0.00\"%\"",
-                        indexLabel: "{label} {y}",
-                        dataPoints: data
-                    }]
-                });
-                chart.render();
-            }
+            window.costManager.updateHomeView();
         </script>
     </div>
     <div data-role="footer">
@@ -57,9 +39,9 @@
     <div data-role="header">
         <div data-role="navbar">
             <ul>
-                <li><a data-icon="grid" href="#home" data-transition="fade">Home</a></li>
+                <li><a data-icon="grid" href="#home" data-transition="fade" onclick="window.costManager.updateHomeView()">Home</a></li>
                 <li><a data-icon="plus" class="ui-btn-active ui-state-persist" >New Expense</a></li>
-                <li><a data-icon="star" href="#reports" data-transition="fade">Reports</a></li>
+                <li><a data-icon="star" href="#reports" data-transition="fade" onclick="window.costManager.updateReportView()">Reports</a></li>
             </ul>
         </div>
     </div>
@@ -97,30 +79,7 @@
             </div>
         </div>
         <script>
-            window.costManager.handleButtonClick =  function (){
-                try {
-                    let ob = {};
-                    ob.title = document.getElementById("title").value;
-                    ob.description = document.getElementById("description").value;
-                    ob.date = document.getElementById("date").value;
-                    ob.price = document.getElementById("price").value;
-                    ob.category = document.getElementById("category").value;
-                    if(ob.title=="" || ob.description=="" || ob.date=="" || ob.price=="" || ob.category==""){
-                        $("#pop-up-warning").popup("open");
-                        return;
-                    }
-                    window.costManager.addItem(ob);
-                    document.getElementById("title").value = "";
-                    document.getElementById("description").value = "";
-                    document.getElementById("date").value = "";
-                    document.getElementById("price").value = "";
-                    $("#pop-up-success").popup("open");
-                }
-                catch{
-                    $("#pop-up-warning").popup("open");
-                }
-            }
-            document.getElementById("submit").addEventListener("click", window.costManager.handleButtonClick);
+            document.getElementById("submit").addEventListener("click", window.costManager.handleAddButtonClick);
         </script>
     </div>
     <div data-role="footer">
@@ -132,7 +91,7 @@
     <div data-role="header">
         <div data-role="navbar">
             <ul>
-                <li><a data-icon="grid" href="#home" data-transition="fade">Home</a></li>
+                <li><a data-icon="grid" href="#home" data-transition="fade" onclick="window.costManager.updateHomeView()">Home</a></li>
                 <li><a data-icon="plus" href="#add" data-transition="fade">New Expense</a></li>
                 <li><a data-icon="star" class="ui-btn-active ui-state-persist">Reports</a></li>
             </ul>
@@ -159,9 +118,20 @@
         </form>
         <br>
         <div id="list"> </div>
-        <div id="sortedContainer" style="height: 300px; width: 100%;"></div>
+        <br>
+        <div id="sortedContainer" style="height: 400px; width: 100%;"></div>
+        <div data-role="popup" id="pop-up-clearData">
+            <div data-role="header" style="background-color: darkseagreen">
+                <h1 style="font-weight: bold">Success</h1>
+            </div>
+            <div role="main" data-rel="back" class="ui-content">
+                <a href="#" data-rel="back"  class="ui-shadow-icon ui-btn ui-shadow ui-corner-all ui-icon-check ui-btn-icon-left">App Data Deleted!</a>
+            </div>
+        </div>
+        <br>
+        <input type="button" value="Clear All App Data" id="clearData" onclick="window.costManager.clearLocalStorageData()">
         <script>
-            (function load() {window.costManager.updateListView(window.costManager.getItems()); })();
+            window.costManager.updateReportView();
         </script>
     </div>
     <div data-role="footer">
