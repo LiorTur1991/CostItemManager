@@ -1,7 +1,5 @@
 window.costManager = {};
 
-window.costManager.footerText = "Created by Natan Kaspy and Lior Turgeman";
-
 window.costManager.getCostItem = function(title, description, date, price, note){
     let costItem = {};
     costItem.title = title;
@@ -10,7 +8,7 @@ window.costManager.getCostItem = function(title, description, date, price, note)
     costItem.price = price;
     costItem.note = note;
     return costItem;
-}
+};
 
 window.costManager.addItem = function(ob) {
     let data = costManager.getItems();
@@ -18,6 +16,7 @@ window.costManager.addItem = function(ob) {
     let dataString = JSON.stringify(data);
     localStorage.setItem("data", dataString);
 };
+
 window.costManager.getItems = function() {
     let data = localStorage.getItem("data");
     if(data)
@@ -26,7 +25,7 @@ window.costManager.getItems = function() {
         data = [];
         return data;
     }
-}
+};
 
 window.costManager.getCostsPerMonth = function(monthNumber) {
     let data = localStorage.getItem("data");
@@ -46,7 +45,9 @@ window.costManager.getCostsPerMonth = function(monthNumber) {
                 result.push(ob);
     });
     return result;
-}
+};
+
+
 window.costManager.updateListView = function(items){
     let itemsList = "<ul data-role='listview' id='list'>";
     items.forEach(
@@ -60,7 +61,9 @@ window.costManager.updateListView = function(items){
     itemsList+= "</ul>";
     $("#list").html(itemsList);
     $("#list").trigger('create');
-}
+};
+
+
 window.costManager.getCurrentMonthString = function (currentMonth){
     let monthText;
     switch (currentMonth){
@@ -103,7 +106,7 @@ window.costManager.getCurrentMonthString = function (currentMonth){
 
     }
     return monthText;
-}
+};
 
 window.costManager.applySort = function(){
     let sortMonth = parseInt(document.getElementById('sortMonth').value);
