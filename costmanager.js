@@ -1,5 +1,14 @@
 window.costManager = {};
 
+/**
+ * Creates Item from raw data
+ * @param title
+ * @param description
+ * @param date
+ * @param price
+ * @param note
+ * @returns {{}}
+ */
 window.costManager.getCostItem = function(title, description, date, price, note){
     let costItem = {};
     costItem.title = title;
@@ -10,6 +19,10 @@ window.costManager.getCostItem = function(title, description, date, price, note)
     return costItem;
 };
 
+/**
+ * Adds new Item to local-storage data
+ * @param ob - Item
+ */
 window.costManager.addItem = function(ob) {
     let data = costManager.getItems();
     data.push(ob)
@@ -17,6 +30,10 @@ window.costManager.addItem = function(ob) {
     localStorage.setItem("data", dataString);
 };
 
+/**
+ * Retrieves all Items in local-storage
+ * @returns {*[]|any} - if void returns empty array
+ */
 window.costManager.getItems = function() {
     let data = localStorage.getItem("data");
     if(data)
@@ -27,6 +44,9 @@ window.costManager.getItems = function() {
     }
 };
 
+/**
+ * Wipes all current data in local-storage
+ */
 window.costManager.clearLocalStorageData = function () {
     let data = [];
     let dataString = JSON.stringify(data);
@@ -37,6 +57,11 @@ window.costManager.clearLocalStorageData = function () {
 
 }
 
+/**
+ * Retrieves all or some Items, conditioned by user's choice
+ * @param monthNumber
+ * @returns {*[]} - Array of Items
+ */
 window.costManager.getCostsPerMonth = function(monthNumber) {
     let data = localStorage.getItem("data");
     let vec = JSON.parse(data);
@@ -59,7 +84,10 @@ window.costManager.getCostsPerMonth = function(monthNumber) {
     return result;
 };
 
-
+/**
+ * Creates\Updates list view
+ * @param items - Items to be displayed
+ */
 window.costManager.updateListView = function(items){
     let itemsList = "<ul data-role='listview' id='list'>";
     items.forEach(
@@ -75,7 +103,11 @@ window.costManager.updateListView = function(items){
     $("#list").trigger('create');
 };
 
-
+/**
+ * Changes month Int value to string
+ * @param currentMonth
+ * @returns {string}
+ */
 window.costManager.getCurrentMonthString = function (currentMonth){
     let monthText;
     switch (currentMonth){
@@ -123,12 +155,20 @@ window.costManager.getCurrentMonthString = function (currentMonth){
     return monthText;
 };
 
+/**
+ * Sorts the list view by user's choice
+ */
 window.costManager.applySort = function(){
     let sortMonth = parseInt(document.getElementById('sortMonth').value);
     window.costManager.updateListView(costManager.getCostsPerMonth(sortMonth));
     window.costManager.createPieChart("sortedContainer",sortMonth);
 };
 
+/**
+ * Creates data for Pie Chart
+ * @param data
+ * @returns {*[]}
+ */
 window.costManager.calcPieData = function (data){
     if(data == undefined) return;
     let totalCounter = 0;
@@ -151,7 +191,11 @@ window.costManager.calcPieData = function (data){
 
     return pieData;
 }
-
+/**
+ * Draws and renders Pie Chart
+ * @param pieChartName
+ * @param currentMonth
+ */
 window.costManager.createPieChart = function (pieChartName,currentMonth){
     let picChartDiv = document.getElementById(pieChartName);
     while (picChartDiv.lastElementChild) {
@@ -184,6 +228,9 @@ window.costManager.createPieChart = function (pieChartName,currentMonth){
     }
 }
 
+/**
+ * Checking submission of addItem form
+ */
 window.costManager.handleAddButtonClick =  function (){
     try {
         let ob = {};
@@ -208,11 +255,17 @@ window.costManager.handleAddButtonClick =  function (){
     }
 }
 
+/**
+ * Updates reports page data
+ */
 window.costManager.updateReportView = function (){
     window.costManager.updateListView(window.costManager.getItems());
     window.costManager.createPieChart("sortedContainer",-1);
 }
 
+/**
+ * Updates home page data
+ */
 window.costManager.updateHomeView = function (){
     let currentDate = new Date();
     let CurrentMonth = costManager.getCurrentMonthString(currentDate.getMonth());
